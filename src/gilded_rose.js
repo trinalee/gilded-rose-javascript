@@ -5,12 +5,8 @@ function Item(name, sell_in, quality) {
 }
 
 Item.prototype = {
-  setStrategy: function(type) {
-    console.log('i am here', type.update_quality.toString())
-    this.type = type
-  },
   update_quality: function (item) {
-    return this.type.update_quality(item)
+    return this.strategy.update_quality(item)
   }
 }
 
@@ -23,7 +19,8 @@ items.push(new Item('Sulfuras, Hand of Ragnaros', 0, 80));
 items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20));
 items.push(new Item('Conjured Mana Cake', 3, 6));
 
-var Brie = function () {
+
+function Brie () {
   this.update_quality = (item) => {
     item.sell_in --
     if(item.quality != 50) {
@@ -32,7 +29,7 @@ var Brie = function () {
   }
 }
 
-var BackstagePasses = function () {
+function BackstagePasses () {
   this.update_quality = (item) => {
     item.sell_in --
     if (item.sell_in < 10) {
@@ -53,7 +50,7 @@ var BackstagePasses = function () {
   }
 }
 
-var Standard = function () {
+function Standard () {
   this.update_quality = (item) => {
     item.sell_in --
     if (item.quality != 0){
@@ -75,17 +72,17 @@ function update_quality() {
   items.forEach((item) => {
     switch (item.name) {
       case 'Aged Brie':
-        item.setStrategy(brie)
+        item.strategy = brie
         item.update_quality(item)
         break
       case 'Sulfuras, Hand of Ragnaros':
         break
       case 'Backstage passes to a TAFKAL80ETC concert':
-        item.setStrategy(backstagePasses)
+        item.strategy = backstagePasses
         item.update_quality(item)
         break
       default:
-      item.setStrategy(standard)
+      item.strategy = standard
       item.update_quality(item)
       }
     })

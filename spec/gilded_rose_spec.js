@@ -122,7 +122,7 @@ describe("Gilded Rose", function() {
   })
 
   describe("conjured items", function(){
-    it("should decrease the sell_in value by 1 and quality value by 2", function() {
+    xit("should decrease the sell_in value by 1 and quality value by 2", function() {
       items.push(new Item('Conjured Mana Cake', 3, 6))
 
       update_quality()
